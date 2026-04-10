@@ -123,7 +123,7 @@ void USBHIDXComponent::handle_new_device(uint8_t address) {
 
   // Check for Xbox 360 devices (vendor-specific class 0xFF)
   bool is_xbox360 = (
-    (dev->vid == 0x045E && (dev->pid == 0x028E || dev->pid == 0x0719)||
+    (dev->vid == 0x045E && (dev->pid == 0x028E || dev->pid == 0x0719))||
     (dev->vid == 0x2DC8 && dev->pid == 0x310B)
   );
 
