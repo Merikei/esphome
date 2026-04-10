@@ -122,7 +122,10 @@ void USBHIDXComponent::handle_new_device(uint8_t address) {
   ESP_LOGI(TAG, "Device VID:PID = %04X:%04X", dev->vid, dev->pid);
 
   // Check for Xbox 360 devices (vendor-specific class 0xFF)
-  bool is_xbox360 = (dev->vid == 0x045E && (dev->pid == 0x028E || dev->pid == 0x0719));
+  bool is_xbox360 = (
+    (dev->vid == 0x045E && (dev->pid == 0x028E || dev->pid == 0x0719)||
+    (dev->vid == 0x2DC8 && dev->pid == 0x310B)
+  );
 
   if (dev_desc->bDeviceClass != 0x03 && dev_desc->bDeviceClass != 0x00 && !is_xbox360) {
     ESP_LOGD(TAG, "Not a HID device, ignoring");
