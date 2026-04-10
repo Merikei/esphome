@@ -13,6 +13,9 @@ class GenericGamepadDriver : public HIDDeviceDriver {
     // Don't match Xbox 360 (handled by Xbox360Driver)
     if (vid == 0x045E && pid == 0x028E)
       return false;
+    // Don't match 8BitDo in Xbox mode (handled by Xbox360Driver)
+    if (vid == 0x2DC8 && pid == 0x310B)
+      return false;
     // Don't match Switch controllers (handled by SwitchDriver)
     if ((vid == 0x057E && pid == 0x2009) || (vid == 0x20D6 && pid == 0xA713))
       return false;
