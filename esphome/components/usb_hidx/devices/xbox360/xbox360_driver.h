@@ -46,6 +46,7 @@ class Xbox360Driver : public HIDDeviceDriver {
 
     // Wired format: 20 bytes, starts with 0x00 0x14
     if (data[0] != 0x00 || data[1] != 0x14)
+      ESP_LOGW("usb_hidx.xbox360", "Unrecognised report format");
       return;
 
     // Store device pointer and initialize on first report
