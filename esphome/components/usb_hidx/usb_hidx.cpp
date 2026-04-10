@@ -330,6 +330,21 @@ void USBHIDXComponent::transfer_callback(usb_transfer_t *transfer) {
     }
 
     if (!is_idle) {
+
+      // XBOX 360 DEBUG START
+      bool is_xbox = (dev->driver && strcmp(dev->driver->get_name(), "Xbox360") == 0);
+      if (is_xbox) {
+        std::string xbox_hex = "XBOX RAW: [";
+        for (int i = 0; i < transfer->actual_num_bytes; i++) {
+          char buf[8];
+          snprintf(buf, sizeof(buf), "%02X%s", transfer->data_buffer[i], i < transfer->actual_num_bytes - 1 ? " " : "");
+          xbox_hex += buf;
+        }
+        xbox_hex += "]";
+        ESP_LOGI(TAG, "%s", xbox_hex.c_str());
+      }
+      // XBOX 360 DEBUG END
+      
       // Log PlayStation transfers
       if (is_ps_device) {
         ESP_LOGI(TAG, "PlayStation transfer: status=%d, bytes=%d, EP=0x%02X", transfer->status,
