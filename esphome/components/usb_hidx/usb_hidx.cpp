@@ -332,8 +332,6 @@ void USBHIDXComponent::transfer_callback(usb_transfer_t *transfer) {
     if (!is_idle) {
 
       // XBOX 360 DEBUG START
-      bool is_xbox = (dev->driver && strcmp(dev->driver->get_name(), "Xbox360") == 0);
-      if (is_xbox) {
         std::string xbox_hex = "XBOX RAW: [";
         for (int i = 0; i < transfer->actual_num_bytes; i++) {
           char buf[8];
@@ -342,7 +340,6 @@ void USBHIDXComponent::transfer_callback(usb_transfer_t *transfer) {
         }
         xbox_hex += "]";
         ESP_LOGI(TAG, "%s", xbox_hex.c_str());
-      }
       // XBOX 360 DEBUG END
       
       // Log PlayStation transfers
