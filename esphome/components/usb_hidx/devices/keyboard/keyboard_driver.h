@@ -12,8 +12,11 @@ class KeyboardDriver : public HIDDeviceDriver {
   KeyboardDriver(USBHIDXComponent *parent) : parent_(parent) {}
 
   bool match_device(uint8_t protocol, uint16_t vid, uint16_t pid) override {
-    // Don't match Xbox 360 controller
-    if (vid == 0x045E && pid == 0x028E)
+    // Don't match Xbox 360 controllers
+    if (vid == 0x045E && (pid == 0x028E || pid == 0x0719))
+      return false;
+    // Don't match 8BitDo in Xbox mode
+    if (vid == 0x2DC8 && pid == 0x310B)
       return false;
     return protocol == 0x01;  // HID keyboard protocol
   }
